@@ -1,0 +1,5 @@
+postgresql['external'] = true
+postgresql['db_superuser'] = "<%= node['backendless_chef']['database']['username'] %>"
+postgresql['db_superuser_password'] = "<%= node['backendless_chef']['database']['password'] %>"
+postgresql['port'] = <%= node['backendless_chef']['database']['port'] %>
+postgresql['vip'] = "<%= node['backendless_chef']['database']['url'] %>"

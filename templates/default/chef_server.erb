@@ -1,0 +1,32 @@
+topology ''
+notification_email '"Chef Notifications" <chef@chef.<%= node['backendless_chef']['domain'] %>>'
+
+license['nodes'] = <%= node['backendless_chef']['licensecount'] %>
+
+server '<%= node['fqdn'] %>',
+  ipaddress: '<%= node['ipaddress'] %>',
+  role: 'frontend'
+
+api_fqdn '<%= node['backendless_chef']['api_fqdn'] %>'
+
+<% if node['backendless_chef']['ssl']['enabled'] == true %>
+nginx['ssl_certificate'] = '<%= node['backendless_chef']['s3']['dir'] %>/certs/chef.<%= node['backendless_chef']['prime_domain'] %>.crt'
+nginx['ssl_certificate_key'] = '<%= node['backendless_chef']['s3']['dir'] %>/certs/chef.<%= node['backendless_chef']['prime_domain'] %>.key'
+<% end -%>
+
+<% if node['backendless_chef']['ssl']['enabled'] == false %>
+nginx['enable_non_ssl'] = true
+<% end -%>
+
+bookshelf['enable'] = false
+bookshelf['vip'] = "S3-<%= node['backendless_chef']['aws']['region'] %>.amazonaws.com"
+bookshelf['external_url'] = "https://s3-<%= node['backendless_chef']['aws']['region'] %>.amazonaws.com"
+bookshelf['access_key_id'] = "<%= node['backendless_chef']['aws_access_key_id'] %>"
+bookshelf['secret_access_key'] = "<%= node['backendless_chef']['aws_secret_access_key'] %>"
+opscode_erchef['s3_bucket'] = "<%= node['backendless_chef']['cookbook']['bucket'] %>"
+
+postgresql['external'] = true
+postgresql['db_superuser'] = "<%= node['backendless_chef']['database']['username'] %>"
+postgresql['db_superuser_password'] = "<%= node['backendless_chef']['database']['password'] %>"
+postgresql['port'] = <%= node['backendless_chef']['database']['port'] %>
+postgresql['vip'] = "<%= node['backendless_chef']['database']['url'] %>"
