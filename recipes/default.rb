@@ -63,7 +63,7 @@ template '/etc/opscode-reporting/opscode-reporting.rb' do
 end
 
 include_recipe 'backendless_chef::disable_iptables'
-include_recipe 'backendless_chef::reporting'
+#include_recipe 'backendless_chef::reporting'
 include_recipe 'backendless_chef::mail'
 include_recipe 'backendless_chef::manage'
 include_recipe 'backendless_chef::stage'

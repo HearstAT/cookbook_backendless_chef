@@ -54,7 +54,6 @@ default['backendless_chef']['prime_domain'] = ''
 default['backendless_chef']['secondary_domain'] = ''
 
 # Database Config
-default['backendless_chef']['database']['ext_enable'] = ''
 default['backendless_chef']['database']['port'] = ''
 default['backendless_chef']['database']['url'] = ''
 
