@@ -58,9 +58,8 @@ default['backendless_chef']['database']['ext_enable'] = ''
 default['backendless_chef']['database']['port'] = ''
 default['backendless_chef']['database']['url'] = ''
 
-# Cookbook Config
-default['backendless_chef']['cookbook']['ext_enable'] = ''
-default['backendless_chef']['cookbook']['bucket'] = ''
+# Database Config
+default['backendless_chef']['search']['url'] = ''
 
 # Citadel
 default['citadel']['bucket'] = ''

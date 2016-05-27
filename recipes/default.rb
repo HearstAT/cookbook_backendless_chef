@@ -27,9 +27,6 @@
 node.default['backendless_chef']['database']['username'] = citadel['db/username']
 node.default['backendless_chef']['database']['password'] = citadel['db/password']
 
-node.default['backendless_chef']['aws_access_key_id'] = citadel['aws/access_key']
-node.default['backendless_chef']['aws_secret_access_key'] = citadel['aws/secret_key']
-
 package 'chef-server-core'
 
 template '/etc/hosts' do

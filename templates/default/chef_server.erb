@@ -1,11 +1,8 @@
-topology ''
 notification_email '"Chef Notifications" <chef@chef.<%= node['backendless_chef']['domain'] %>>'
 
 license['nodes'] = <%= node['backendless_chef']['licensecount'] %>
 
-server '<%= node['fqdn'] %>',
-  ipaddress: '<%= node['ipaddress'] %>',
-  role: 'frontend'
+fqdn '<%= node['fqdn'] %>'
 
 api_fqdn '<%= node['backendless_chef']['api_fqdn'] %>'
 
@@ -18,15 +15,34 @@ nginx['ssl_certificate_key'] = '<%= node['backendless_chef']['s3']['dir'] %>/cer
 nginx['enable_non_ssl'] = true
 <% end -%>
 
-bookshelf['enable'] = false
-bookshelf['vip'] = "S3-<%= node['backendless_chef']['aws']['region'] %>.amazonaws.com"
-bookshelf['external_url'] = "https://s3-<%= node['backendless_chef']['aws']['region'] %>.amazonaws.com"
-bookshelf['access_key_id'] = "<%= node['backendless_chef']['aws_access_key_id'] %>"
-bookshelf['secret_access_key'] = "<%= node['backendless_chef']['aws_secret_access_key'] %>"
-opscode_erchef['s3_bucket'] = "<%= node['backendless_chef']['cookbook']['bucket'] %>"
-
 postgresql['external'] = true
 postgresql['db_superuser'] = "<%= node['backendless_chef']['database']['username'] %>"
 postgresql['db_superuser_password'] = "<%= node['backendless_chef']['database']['password'] %>"
 postgresql['port'] = <%= node['backendless_chef']['database']['port'] %>
 postgresql['vip'] = "<%= node['backendless_chef']['database']['url'] %>"
+
+opscode_solr4['external'] = true
+opscode_solr4['external_url'] = '<%= node['backendless_chef']['search']['url'] %>'
+opscode_erchef['search_provider'] = 'elasticsearch'
+opscode_erchef['search_queue_mode'] = 'batch'
+
+# HA mode requires sql-backed storage for bookshelf.
+bookshelf['storage_type'] = :sql
+
+# RabbitMQ settings
+rabbitmq['enable'] = false
+rabbitmq['management_enabled'] = false
+rabbitmq['queue_length_monitor_enabled'] = false
+
+# Opscode Expander
+
+# opscode-expander isn't used when the search_queue_mode is batch.  It
+# also doesn't support the elasticsearch backend.
+opscode_expander['enable'] = false
+
+# Prevent startup failures due to missing rabbit host
+dark_launch['actions'] = false
+
+# Cookbook Caching
+opscode_erchef['nginx_bookshelf_caching'] = :on
+opscode_erchef['s3_url_expiry_window_size'] = '50%'
