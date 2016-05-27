@@ -29,14 +29,6 @@ node.default['backendless_chef']['database']['password'] = citadel['db/password'
 
 package 'chef-server-core'
 
-template '/etc/hosts' do
-  action :create
-  source 'hosts.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-end
-
 # Make sure /etc/opscode exists
 directory '/etc/opscode' do
   action :create
