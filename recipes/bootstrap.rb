@@ -35,3 +35,12 @@ file '/var/opt/opscode/bootstrapped' do
   mode '0644'
   only_if { node['backendless_chef']['install']['existing'] }
 end
+
+file '/var/opt/opscode/bootstrapped' do
+  action :create
+  content 'For I am bootstrapped'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  only_if { node['backendless_chef']['master'] != node['fqdn'] }
+end
