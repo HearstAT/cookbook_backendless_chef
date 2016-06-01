@@ -47,27 +47,26 @@ template '/etc/opscode/chef-server.rb' do
 end
 
 # Make sure /etc/opscode exists
-directory '/etc/opscode-reporting' do
-  action :create
-  owner 'root'
-  group 'root'
-  mode '0755'
-end
+#directory '/etc/opscode-reporting' do
+#  action :create
+#  owner 'root'
+#  group 'root'
+#  mode '0755'
+#end
 
-template '/etc/opscode-reporting/opscode-reporting.rb' do
-  action :create
-  source 'opscode_reporting.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-end
+#template '/etc/opscode-reporting/opscode-reporting.rb' do
+#  action :create
+#  source 'opscode_reporting.erb'
+#  owner 'root'
+#  group 'root'
+#  mode '0644'
+#end
 
 include_recipe 'backendless_chef::disable_iptables'
-#include_recipe 'backendless_chef::reporting'
 include_recipe 'backendless_chef::mail'
 include_recipe 'backendless_chef::manage'
 include_recipe 'backendless_chef::stage'
-include_recipe 'backendless_chef::reporting'
+#include_recipe 'backendless_chef::reporting'
 include_recipe 'backendless_chef::backup'
 include_recipe 'backendless_chef::sync'
 include_recipe 'backendless_chef::reconfigure'
