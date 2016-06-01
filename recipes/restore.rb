@@ -27,19 +27,16 @@
 execute 's3-backup-get' do
   command "cp -f #{node['backendless_chef']['s3']['dir']}/backup.tar #{Chef::Config[:file_cache_path]}/backup.tar"
   action :run
-  only_if { node['backendless_chef']['backup']['restore'] }
 end
 
 execute 'backup-extract' do
   command "tar -xzf #{Chef::Config[:file_cache_path]}/backup.tar --strip-components=1"
   action :run
   cwd Chef::Config[:file_cache_path]
-  only_if { node['backendless_chef']['backup']['restore'] }
 end
 
 execute 'knife-backup-restore-ext' do
   command "/opt/opscode/embedded/bin/knife ec restore #{Chef::Config[:file_cache_path]}/backup -s https://#{node['backendless_chef']['stage_subdomain']}.#{node['backendless_chef']['prime_domain']} --with-user-sql --skip-useracl --sql-host #{node['backendless_chef']['database']['url']}"
   action :run
-  only_if { node['backendless_chef']['backup']['restore'] }
 end
 
