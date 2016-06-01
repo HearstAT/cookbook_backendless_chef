@@ -64,7 +64,7 @@ end
 
 include_recipe 'backendless_chef::disable_iptables'
 include_recipe 'backendless_chef::mail'
-include_recipe 'backendless_chef::bootstrapped'
+include_recipe 'backendless_chef::bootstrap'
 include_recipe 'backendless_chef::manage'
 include_recipe 'backendless_chef::stage'
 #include_recipe 'backendless_chef::reporting'
