@@ -25,7 +25,6 @@
 #
 
 # Pass to pull a backup and use knife ec to restore
-default['backendless_chef']['backup']['restore'] = false
 default['backendless_chef']['backup']['enable_backups'] = false
 default['backendless_chef']['backup']['restore_file'] = ''
 
