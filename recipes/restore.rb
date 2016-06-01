@@ -38,7 +38,7 @@ execute 'backup-extract' do
 end
 
 execute 'knife-backup-restore-ext' do
-  command "/opt/opscode/embedded/bin/knife ec restore #{Chef::Config[:file_cache_path]}/backup -s https://#{node['backendless_chef']['stage_subdomain'].node['backendless_chef']['prime_domain']} --with-user-sql --skip-useracl --sql-host #{node['backendless_chef']['database']['url']}"
+  command "/opt/opscode/embedded/bin/knife ec restore #{Chef::Config[:file_cache_path]}/backup -s https://#{node['backendless_chef']['stage_subdomain']}.#{node['backendless_chef']['prime_domain']} --with-user-sql --skip-useracl --sql-host #{node['backendless_chef']['database']['url']}"
   action :run
   only_if { node['backendless_chef']['backup']['restore'] }
 end
