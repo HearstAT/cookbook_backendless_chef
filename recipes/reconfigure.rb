@@ -32,7 +32,7 @@ execute 'chef-server-ctl restart' do
   retry_delay 60
 end
 
-execute 'opscode-reporting-ctl reconfigure --accept-license'
+#execute 'opscode-reporting-ctl reconfigure --accept-license'
 execute 'chef-manage-ctl reconfigure --accept-license'
 
 execute 'core-bundle' do
@@ -41,8 +41,8 @@ execute 'core-bundle' do
   only_if { node['backendless_chef']['master'] == node['fqdn'] }
 end
 
-execute 'reporting-bundle' do
-  command "tar -czvf #{node['backendless_chef']['s3']['dir']}/reporting_bundle.tar.gz /etc/opscode-reporting"
-  action :run
-  only_if { node['backendless_chef']['master'] == node['fqdn'] }
-end
+#execute 'reporting-bundle' do
+#  command "tar -czvf #{node['backendless_chef']['s3']['dir']}/reporting_bundle.tar.gz /etc/opscode-reporting"
+#  action :run
+#  only_if { node['backendless_chef']['master'] == node['fqdn'] }
+#end
