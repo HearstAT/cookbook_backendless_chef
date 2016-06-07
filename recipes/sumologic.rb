@@ -44,6 +44,17 @@ node.default['sumologic']['sources'] = [
     pathExpression: '/var/log/messages'
   },
   {
+    name: 'Mail',
+    sourceType: 'LocalFile',
+    automaticDateParsing: true,
+    multilineProcessingEnabled: false,
+    useAutolineMatching: true,
+    forceTimeZone: false,
+    timeZone: 'UTC',
+    category: 'OS/Linux/System',
+    pathExpression: '/var/log/mail.log'
+  },
+  {
     name: 'Secure',
     sourceType: 'LocalFile',
     automaticDateParsing: true,
