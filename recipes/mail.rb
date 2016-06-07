@@ -26,13 +26,8 @@
 # This recipe configures the postfix
 #
 
-node.default['backendless_chef']['mail']['sasl_passwd'] = citadel['mail/creds']
-
-%w(postfix sasl2-bin).each do |pkg|
-  package pkg do
-    action :install
-  end
-end
+package postfix
+package sasl2-bin
 
 service 'postfix' do
   action [:enable, :start]
@@ -44,13 +39,14 @@ template '/etc/postfix/main.cf' do
 end
 
 file '/etc/postfix/sasl_passwd' do
-  content node['backendless_chef']['mail']['sasl_passwd']
+  content citadel['mail/creds']
   owner 'root'
   group 'root'
   mode 00644
 end
 
 execute 'postmapcreds' do
-  command 'postmap /etc/postfix/sasl_passwd'
+  command 'postmap sasl_passwd'
+  cwd '/etc/postfix'
   action :nothing
 end
