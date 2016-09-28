@@ -70,33 +70,3 @@ template "/var/opt/opscode/nginx/etc/nginx.d/#{node['backendless_chef']['prime_d
   notifies :run, 'execute[sleep]', :immediately
   notifies :run, 'execute[restart-nginx]', :immediately
 end
-
-template "/var/opt/opscode/nginx/etc/nginx.d/#{node['backendless_chef']['secondary_domain']}.conf" do
-  source 'site.conf.erb'
-  owner 'root'
-  group 'root'
-  mode 00777
-  variables ({
-    subdomains: ["chef", node['backendless_chef']['stage_subdomain']],
-    domain: node['backendless_chef']['secondary_domain']
-  })
-  only_if { node['backendless_chef']['secondary_domain'] }
-  not_if { node['backendless_chef']['ssl']['enabled'] }
-  notifies :run, 'execute[sleep]', :immediately
-  notifies :run, 'execute[restart-nginx]', :immediately
-end
-
-template "/var/opt/opscode/nginx/etc/nginx.d/#{node['backendless_chef']['secondary_domain']}.conf" do
-  source 'site.ssl.conf.erb'
-  owner 'root'
-  group 'root'
-  mode 00777
-  variables ({
-    subdomains: ["chef", node['backendless_chef']['stage_subdomain']],
-    domain: node['backendless_chef']['secondary_domain']
-  })
-  only_if { node['backendless_chef']['secondary_domain'] }
-  only_if { node['backendless_chef']['ssl']['enabled'] }
-  notifies :run, 'execute[sleep]', :immediately
-  notifies :run, 'execute[restart-nginx]', :immediately
-end

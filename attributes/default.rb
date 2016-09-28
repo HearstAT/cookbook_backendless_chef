@@ -50,7 +50,6 @@ default['backendless_chef']['api_fqdn'] = ''
 
 # Domain provided via Route53 hosted zone
 default['backendless_chef']['prime_domain'] = ''
-default['backendless_chef']['secondary_domain'] = ''
 
 # Database Config
 default['backendless_chef']['database']['port'] = ''
