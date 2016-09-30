@@ -27,7 +27,9 @@
 node.default['backendless_chef']['database']['username'] = citadel['db/username']
 node.default['backendless_chef']['database']['password'] = citadel['db/password']
 
-package 'chef-server-core'
+package 'chef-server-core' do
+  version node['backendless_chef']['version']['server']
+end
 
 # Make sure /etc/opscode exists
 directory '/etc/opscode' do

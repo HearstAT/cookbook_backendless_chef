@@ -25,7 +25,9 @@
 #
 # This recipe installs the reporting UI add-on.
 
-package 'opscode-reporting'
+package 'opscode-reporting' do
+  version node['backendless_chef']['version']['reporting']
+end
 
 # Unpack the reporting files
 execute "tar -zxvf #{node['backendless_chef']['s3']['dir']}/reporting_bundle.tar.gz" do
@@ -34,4 +36,3 @@ execute "tar -zxvf #{node['backendless_chef']['s3']['dir']}/reporting_bundle.tar
   only_if { node['backendless_chef']['install']['existing'] }
   only_if { File.exists?("#{node['backendless_chef']['s3']['dir']}/reporting_bundle.tar.gz") }
 end
-

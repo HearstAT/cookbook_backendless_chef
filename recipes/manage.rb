@@ -25,7 +25,9 @@
 #
 # This recipe installs the manage UI add-on.
 
-package 'chef-manage'
+package 'chef-manage' do
+  version node['backendless_chef']['version']['manage']
+end
 
 directory '/etc/opscode-manage' do
   owner 'root'
@@ -41,4 +43,3 @@ template '/etc/opscode-manage/manage.rb' do
   group 'root'
   mode 00644
 end
-

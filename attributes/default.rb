@@ -24,6 +24,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Versions
+default['backendless_chef']['version']['server'] = ''
+default['backendless_chef']['version']['reporting'] = ''
+default['backendless_chef']['version']['manage'] = ''
+
 # Pass to pull a backup and use knife ec to restore
 default['backendless_chef']['backup']['enable_backups'] = false
 default['backendless_chef']['backup']['restore_file'] = ''
